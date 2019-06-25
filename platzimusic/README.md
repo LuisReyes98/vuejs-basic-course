@@ -2,6 +2,8 @@
 
 > Proyecto del curso de introduccion a vue.js de platzi
 
+Creado con [webpack-simple](https://github.com/vuejs-templates/webpack-simple)
+
 ## Build Setup
 
 ``` bash
