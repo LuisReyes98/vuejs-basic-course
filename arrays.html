@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+
+    <form @submit.prevent="submit" action="" method="get">
+      
+      <h2>Curso favorito?</h2>
+      <template v-for="curso in cursos">
+        <input v-model="cursosSeleccionados" type="checkbox" :id="curso.value" :value="curso.value">
+        <label :for="curso.value">{{curso.nombre}}</label>
+
+      </template>
+      
+      <button type="submit">Enviar</button>
+    </form>
+  </div>
+
+
+  <!-- development version, includes helpful console warnings -->
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    let app = new Vue({
+      el: '#app',
+      data: {
+        cursos: [
+          { nombre: 'Curso Vue.js',
+            value: 'vue',
+          },
+          { nombre: 'Curso react.js',
+          value: 'react',
+          },
+          { nombre: 'Curso growth.js',
+          value: 'growth',
+          },
+          { nombre: 'Curso hey.js',
+          value: 'hey',
+          },
+          { nombre: 'Curso lol.js',
+          value: 'lol',
+          },
+        ],
+        cursosSeleccionados: [],
+      },
+      filters:{
+        uppercase: function(str){ return str.toUpperCase()},
+        lowercase: function (str) {
+          return str.toLowerCase()
+        }
+      },
+      methods: {
+        submit: function () {
+          console.log('Hey Jude')
+          console.log(this.cursosSeleccionados)
+        }
+      },
+
+    });
+
+  </script>
+</body>
+</html>

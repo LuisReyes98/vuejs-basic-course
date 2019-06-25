@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+
+    <form @submit.prevent="submit" action="" method="get">
+
+      <h2>Curso favorito?</h2>
+      <template v-for="curso in cursos">
+        <curso :curso="curso" @checked="selectCurso" ></curso>
+
+      </template>
+
+      <button type="submit">Enviar</button>
+      {{cursosSeleccionados}}
+    </form>
+  </div>
+
+
+
+  <!-- development version, includes helpful console warnings -->
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    Vue.component('curso',{
+      props: ['curso'],
+      methods: {
+        onchange: function(ev){
+          this.$emit('checked',this.curso.value,ev.target.checked)
+        }
+      },
+      template:`
+        <div>
+          <input @change="onchange" type="checkbox" :id="curso.value" :value="curso.value">
+          <label :for="curso.value">{{curso.nombre}}</label>
+        </div>
+      `
+    })
+    let app = new Vue({
+      el: '#app',
+      data: {
+        cursos: [
+          { nombre: 'Curso Vue.js',
+            value: 'vue',
+          },
+          { nombre: 'Curso react.js',
+          value: 'react',
+          },
+          { nombre: 'Curso growth.js',
+          value: 'growth',
+          },
+          { nombre: 'Curso hey.js',
+          value: 'hey',
+          },
+          { nombre: 'Curso lol.js',
+          value: 'lol',
+          },
+        ],
+        cursosSeleccionados: [],
+      },
+      filters:{
+        uppercase: function(str){ return str.toUpperCase()},
+        lowercase: function (str) {
+          return str.toLowerCase()
+        }
+      },
+      methods: {
+        submit: function () {
+          console.log('Hey Jude')
+          console.log(this.cursosSeleccionados)
+        },
+        selectCurso: function(curso, checked){
+          if(checked){
+            this.cursosSeleccionados.push(curso)
+          }else {
+            let index = this.cursosSeleccionados.indexOf(curso)
+            this.cursosSeleccionados.splice(index,1)
+          }
+        },
+      },
+
+    });
+
+  </script>
+</body>
+</html>
+
