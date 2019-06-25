@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    Hola {{ nombre }}
+
+    <!-- v if lo borra del dom -->
+    <!--  el template es un contenedor no aparece en el dom -->
+    <!--  a un template no se le puede añadir v show -->
+    <!--  el v if consume mas recursos que el v show -->
+    <template v-if="show">
+
+      <h1 >{{titulo | uppercase }} </h1>
+      <h2 >{{subtitulo | lowercase }} </h2>
+      <a :href="url" target="_blank" >{{page}} </a>
+
+
+    </template>
+    <!-- v show le añade display none cuando no quieres que se muestre -->
+    <div v-show="show">
+      <h1>Mostrar</h1>
+    </div>
+    <div v-show="!show">
+      <h1>No Mostrar</h1>
+    </div>
+
+  </div>
+
+
+  <!-- development version, includes helpful console warnings -->
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    let app = new Vue({
+      el: '#app',
+      data: {
+        nombre: 'Luis',
+        url: 'https://google.com',
+        page: 'Google',
+        show: true,
+        titulo: 'Platzi',
+        subtitulo: 'Curso Vue.js'
+
+      },
+      filters:{
+        uppercase: function(str){ return str.toUpperCase()},
+        lowercase: function (str) {
+          return str.toLowerCase()
+        }
+      }
+    });
+
+  </script>
+</body>
+</html>

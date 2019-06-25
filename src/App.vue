@@ -4,6 +4,7 @@
     h1 Platzi Music
     select(v-model="selectedCountry")
       option(v-for="country in countries" :value="country.value") {{country.name}}
+    spinner(v-show="loading")
     ul
       artist(v-for="artist in artists" v-bind:artist="artist" v-bind:key="artist.mbid")
       //- es necesario por vue que las estructuras repetitivas de lista tengan un key en caso de que algun valor cambie
@@ -12,8 +13,9 @@
 </template>
 
 <script>
-import getArtists from './api'
-import Artist from './components/Artists.vue'
+import getArtists from './api';
+import Artist from './components/Artists.vue';
+import Spinner from './components/Spinner.vue';
 
 export default {
   name: 'app',
@@ -26,17 +28,22 @@ export default {
         { name: 'España', value: 'spain'},
         { name: 'Venezuela', value: 'venezuela'},
       ],
-      selectedCountry: 'venezuela'
+      selectedCountry: 'venezuela',
+      loading: true,
     }
   },
   components: {
-    Artist: Artist
+    Artist,
+    Spinner
   },
   methods: {
     loadArtists(){
       const self = this;
+      this.loading = true;
+      this.artists = [];
       getArtists(this.selectedCountry)
-        .then(function (artists) { 
+        .then(function (artists) {
+          self.loading = false;
           self.artists = artists;
         })
 
